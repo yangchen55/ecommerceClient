@@ -6,7 +6,6 @@ const LoginPage = () => {
     return (
         <div>
             <Header />
-
             <div className='main login-page'>this is login page</div>
             <Footer />
         </div>

@@ -1,8 +1,9 @@
 import './App.css';
-import { Button } from 'react-bootstrap';
+import { Button, ToastContainer } from 'react-toastify';
 import LoginPage from './pages/login/LoginPage';
 import RegisterPage from './pages/register/RegisterPage';
 import { BrowserRouter as Browser, Routes, Route } from "react-router-dom";
+
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </Browser>
+      <ToastContainer />
 
 
     </div>
