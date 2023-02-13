@@ -7,3 +7,10 @@
     margin:auto;
 
 }
+
+.login-page form{
+    max-width:450px;
+    margin:auto;
+    border-radius: 5%;
+
+}
