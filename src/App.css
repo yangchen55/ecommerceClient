@@ -14,3 +14,25 @@
     border-radius: 5%;
 
 }
+.side-bar{
+    height:100vh;
+}
+.side-bar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+.side-bar ul li {
+    list-style-type: none;
+    margin-bottom: 2rem;
+
+}
+
+
+
+dashboard-page{
+    max-width:450px;
+    margin:auto;
+
+}
+

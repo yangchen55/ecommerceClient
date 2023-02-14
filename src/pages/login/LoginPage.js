@@ -1,38 +1,21 @@
-import React, { useRef } from 'react'
-import { Container, Form, Button } from 'react-bootstrap'
-import CustomInput from '../../components/CustomInput'
+import React, { useRef, useEffect } from 'react'
+import { Container, Form, Button, Spinner } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Footer from '../layout/Footer'
 import Header from '../layout/Header'
+import { loginAction } from './authAction'
 
 
 
-const inputs = [
 
-    {
-        label: "email",
-        type: "email",
-        name: "email",
-        placeholder: "@gmail.com",
-        required: true
-
-    },
-
-    {
-        label: "password",
-        type: "password",
-        name: "password",
-        required: true
-
-
-    }
-
-
-
-]
 
 const LoginPage = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const emailRef = useRef("");
     const passRef = useRef("");
+    const { isLoading, user } = useSelector((state) => state.user)
 
 
 
@@ -42,24 +25,32 @@ const LoginPage = () => {
             email: emailRef.current.value,
             password: passRef.current.value
         }
-        console.log(formDt)
+        if (!formDt.email || !formDt.password) {
+            return alert("please filll in both the fields")
+
+        }
+        dispatch(loginAction(formDt))
+
 
 
     }
+    useEffect(() => {
+        user?._id && navigate("/dashboard")
+        // todo router private
+    }, [user, navigate])
 
     return (
         <div>
 
 
             <Header />
-            <div className='main login-page'>
-
-                <Container className='m-3'>
-                    <Form className='border p-4 rounded bg-white shadow-lg' onSubmit={handleOnSubmit}>
+            <div className='main login-page  '>
+                <Container className='d-flex justify-content-around' >
+                    <Form className='border p-4 m-5 rounded bg-white shadow-lg' style={{ width: "500px" }} onSubmit={handleOnSubmit}>
 
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control ref={emailRef} type="email" placeholder="Enter email" required />
+                            <Form.Control ref={emailRef} type="email" placeholder="tseyang9861@gmail.com" value="tseyang9861@gmail.com" required />
                         </Form.Group>
 
                         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -68,7 +59,8 @@ const LoginPage = () => {
                         </Form.Group>
 
                         <Button variant="danger" type="submit" >
-                            Submit
+                            {isLoading ? <Spinner animation='border' /> : "submit"}
+
                         </Button>
 
 
@@ -78,7 +70,7 @@ const LoginPage = () => {
 
             </div>
             <Footer />
-        </div>
+        </div >
     )
 }
 
