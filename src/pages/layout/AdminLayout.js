@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col} from 'react-bootstrap'
+import { Container, Row, Col, Navbar} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Footer from './Footer'
 import Header from './Header'
@@ -13,6 +13,8 @@ const AdminLayout = ({ children }) => {
                 <Container fluid>
                     <Row>
                         <Col xs="3" className='side-bar bg-dark text-light'>
+                                <Navbar.Toggle aria-controls="basic-navbar-nav" className='bg-success' />
+                                <Navbar.Collapse id="basic-navbar-nav">
                         
                           
                           <div className="mt-5">
@@ -43,7 +45,11 @@ const AdminLayout = ({ children }) => {
                                 </ul>
                             </div>
                           </div>
+                          </Navbar.Collapse>
                         </Col>
+
+
+                        {/* main page  */}
                         <Col>
                           <div className='main dashboard-page'>
                            welcome to ddashboard
