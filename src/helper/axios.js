@@ -14,6 +14,9 @@ export const postNewAdmin = async (data) => {
     }
 };
 
+
+
+
 export const postEmailVerification = async (data) => {
     try {
         const res = await axios.post(adminApi + "/verify", data);
@@ -38,3 +41,32 @@ export const loginAdmin = async (logindata) => {
 
     }
 }
+
+export const tokenVerify = async (verifydata) => {
+    try {
+
+        const { data } = await axios.post(adminApi + "/tokenVerify", verifydata)
+        console.log(data)
+        return data
+    } catch (error) {
+        return {
+            status: "error",
+            message: error.message
+        }
+
+    }
+}
+
+
+export const postEmailVerify = async (data) => {
+    try {
+        console.log("from postEmail verify")
+        const res = await axios.post(adminApi + "/resetPassword", data);
+        return res.data;
+    } catch (error) {
+        return {
+            status: "error",
+            message: error.message,
+        };
+    }
+};

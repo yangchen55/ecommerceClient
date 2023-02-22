@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { Container, Form, Button, Spinner } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Footer from '../layout/Footer'
@@ -58,14 +59,26 @@ const LoginPage = () => {
                             <Form.Control type="password" placeholder="Password" ref={passRef} required />
                         </Form.Group>
 
+
                         <Button variant="danger" type="submit" >
                             {isLoading ? <Spinner animation='border' /> : "submit"}
-
                         </Button>
+                        <br>
+                        </br>
+                        <div className='text-end' >
+
+                            <Link to="/resetPassword" > Forget password? </Link>
+
+
+                        </div>
+
+
 
 
                     </Form>
+
                 </Container>
+
 
 
             </div>
