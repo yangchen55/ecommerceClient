@@ -92,7 +92,9 @@ const ResetPassword = () => {
             });
             return
         }
-        const data = await tokenVerify({ otp, email, newPassword })
+        const token = otp
+
+        const data = await tokenVerify({ token, email, newPassword })
         console.log(form, email)
 
 

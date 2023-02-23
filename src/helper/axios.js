@@ -44,8 +44,8 @@ export const loginAdmin = async (logindata) => {
 
 export const tokenVerify = async (verifydata) => {
     try {
-
-        const { data } = await axios.post(adminApi + "/tokenVerify", verifydata)
+        console.log("from token verify")
+        const data = await axios.post(adminApi + "/tokenVerify", verifydata);
         console.log(data)
         return data
     } catch (error) {
