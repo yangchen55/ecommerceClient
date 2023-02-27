@@ -1,20 +1,14 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef } from "react";
 import { Alert, Spinner } from "react-bootstrap";
-import Footer from '../pages/layout/Footer';
-import Header from '../pages/layout/Header';
-import { useSearchParams } from 'react-router-dom';
-import { postEmailVerification } from '../helper/axios';
-// import { postEmailVerification } from "../../helper/axios";
+import { Footer } from "../layout/Footer";
+import { Header } from "../layout/Header";
 
+import { useSearchParams } from "react-router-dom";
+import { postEmailVerification } from "../../helper/axios";
 
-
-const NewAccVerify = () => {
-
-
-  // show Spinner first  
-  // grab the query String÷
-  // calll the api with the code and email
-  // show the messafe if verified or not 
+export const NewAccVerify = () => {
+  // call the api with the code and email
+  // show the message if verified or not
 
   let [searchParams] = useSearchParams();
   const [response, setResponse] = useState({});
@@ -25,7 +19,7 @@ const NewAccVerify = () => {
     const email = searchParams.get("email");
 
     //call the api
-    callAPi({ email, emailVerificationCode });
+    email && emailVerificationCode && callAPi({ email, emailVerificationCode });
     isFetch.current = false;
   }, [searchParams]);
 
@@ -34,7 +28,6 @@ const NewAccVerify = () => {
       const response = await postEmailVerification(obj);
       setResponse(response);
     }
-
   };
 
   return (
@@ -51,20 +44,5 @@ const NewAccVerify = () => {
       </div>
       <Footer />
     </>
-
-
-
-
-
-
-
-
-  )
-
-}
-
-export default NewAccVerify
-
-
-
-
+  );
+};

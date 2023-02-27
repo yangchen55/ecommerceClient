@@ -1,46 +1,26 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    user: {},
-    isLoading: false
-}
+  user: {},
+  isLoading: false,
+};
 
 const userSlice = createSlice({
-    name: "user",
-    initialState,
-    reducers: {
-        requestPending: (state) => {
-            state.isLoading = true
-            state.loggedIn = false
-        },
+  name: "user",
+  initialState,
+  reducers: {
+    requestPending: (state) => {
+      state.isLoading = true;
+    },
+    requestSuccess: (state, { payload }) => {
+      state.isLoading = false;
+      state.user = payload;
+    },
+  },
+});
 
-        requestSuccess: (state, { payload }) => {
-            state.isLoading = false
-            state.user = payload
-            state.loggedIn = true
-        },
-        requestFailed: (state, { payload }) => {
-            state.isLoading = false
-            state.loggedIn = false
-            state.user = payload
-        }
-    }
-})
+const { reducer, actions } = userSlice;
 
+export const { requestPending, requestSuccess } = actions;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-const { reducer, actions } = userSlice
-export const { requestPending, requestSuccess } = actions
-export default reducer
+export default reducer;
