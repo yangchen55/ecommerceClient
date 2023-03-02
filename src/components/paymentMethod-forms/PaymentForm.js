@@ -14,6 +14,7 @@ const PaymentForm = () => {
             ...paymentMethod,
             [name]: value
         })
+        console.log(paymentMethod)
     }
 
 

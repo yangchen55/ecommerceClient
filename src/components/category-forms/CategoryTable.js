@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCat, fetchCats } from "../../pages/category/categoryAction";
+import {
+  deleteCat,
+  fetchCats,
+  updateCat,
+} from "../../pages/category/categoryAction";
 import { setShowModal } from "../../system/systemSlice";
 import { CustomModal } from "../custom-modal/CustomModal";
 import { EditCatFrm } from "./EditCatFrm";
@@ -11,12 +15,15 @@ export const CategoryTable = () => {
   const dispatch = useDispatch();
 
   const { cats } = useSelector((state) => state.category);
-
+  const [showCats, setShowCats] = useState([]);
   const [selecteCat, setSelectedCat] = useState({});
 
   useEffect(() => {
-    dispatch(fetchCats());
-  }, [dispatch]);
+    if (!showCats.length) {
+      dispatch(fetchCats());
+    }
+    setShowCats(cats);
+  }, [dispatch, cats, showCats]);
 
   const handleOnDelete = (_id) => {
     if (window.confirm("Are you sure you want to delete this category?")) {
@@ -29,12 +36,61 @@ export const CategoryTable = () => {
     dispatch(setShowModal(true));
   };
 
+  const handleOnChange = (e) => {
+    const { value } = e.target;
+    const tempArg = cats.filter(({ name }) => {
+      return name.toLowerCase().includes(value.toLowerCase());
+    });
+    setShowCats(tempArg);
+  };
+
+  const handleOnSwitch = (e) => {
+    const { checked, value } = e.target;
+    const valArg = value.split("|");
+
+    if (window.confirm("Are you sure you want to change the status?")) {
+      const obj = {
+        _id: valArg[0],
+        name: valArg[1],
+        status: checked ? "active" : "inactive",
+      };
+
+      dispatch(updateCat(obj));
+    }
+  };
+
+  const onCatNameChange = (e) => {
+    const { value } = e.target;
+    setSelectedCat({
+      ...selecteCat,
+      name: value,
+    });
+  };
+
+  const handleOnSave = () => {
+    const { _id, name, status } = selecteCat;
+
+    if (window.confirm("Are you sure you want to change the status?")) {
+      dispatch(updateCat({ _id, name, status }));
+      setSelectedCat({});
+    }
+  };
+
   return (
     <div className="mt-5">
-      <div>{cats.length} categories found!</div>
-      <CustomModal show={false} title="Update category">
+      <div className="d-flex justify-content-between mb-2">
+        <div>{showCats.length} categories found!</div>
+        <div className="d-flex align-items-center">
+          <label> Search: </label>{" "}
+          <Form.Control
+            onChange={handleOnChange}
+            placeholder="Search by name"
+          />
+        </div>
+      </div>
+      {/* <CustomModal show={false} title="Update category ">
         <EditCatFrm selecteCat={selecteCat} />
-      </CustomModal>
+      </CustomModal> */}
 
       <Table striped bordered hover>
         <thead>
@@ -47,29 +103,54 @@ export const CategoryTable = () => {
           </tr>
         </thead>
         <tbody>
-          {cats?.length > 0 &&
-            cats.map((itme, i) => (
+          {showCats?.length > 0 &&
+            showCats.map((itme, i) => (
               <tr key={itme?._id}>
                 <td>{i + 1}</td>
-                <td
-                  className={`text-${itme.status === "active" ? "success" : "danger"
-                    }`}
-                >
-                  {itme.status}
-                </td>
-                <td>{itme.name}</td>
-                <td>{itme.slug}</td>
                 <td>
-                  <Button onClick={() => handleOnEdit(itme)} variant="warning">
-                    Edit
-                  </Button>{" "}
-                  <Button
-                    onClick={() => handleOnDelete(itme._id)}
-                    variant="danger"
-                  >
-                    Delete
-                  </Button>
+                  <Form.Check
+                    onChange={handleOnSwitch}
+                    type="switch"
+                    checked={itme.status === "active"}
+                    value={itme._id + "|" + itme.name}
+                  />
                 </td>
+                <td>
+                  {selecteCat._id === itme._id ? (
+                    <Form.Control
+                      value={selecteCat.name}
+                      onChange={onCatNameChange}
+                    />
+                  ) : (
+                    itme.name
+                  )}
+                </td>
+                <td>{itme.slug}</td>
+                {selecteCat._id === itme._id ? (
+                  <td>
+                    <Button onClick={handleOnSave} variant="success">
+                      Save
+                    </Button>{" "}
+                    <Button onClick={() => handleOnEdit({})} variant="info">
+                      Cancel
+                    </Button>
+                  </td>
+                ) : (
+                  <td>
+                    <Button
+                      onClick={() => handleOnEdit(itme)}
+                      variant="warning"
+                    >
+                      Edit
+                    </Button>{" "}
+                    <Button
+                      onClick={() => handleOnDelete(itme._id)}
+                      variant="danger"
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
         </tbody>
