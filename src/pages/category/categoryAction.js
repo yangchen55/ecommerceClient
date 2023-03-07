@@ -9,7 +9,6 @@ import { setCats } from "./categorySlice";
 
 export const fetchCats = () => async (dispatch) => {
   const { status, cats } = await fetchCategory();
-  console.log(cats);
 
   status === "success" && dispatch(setCats(cats));
 };

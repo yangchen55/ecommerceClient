@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 export const SideBar = () => {
   return (
     <div className="sidebar-menu ">
+      <div className="mt-5 ">
+        <div className="text-center fw-bolder">Admin Menu</div>
+      </div>
+      <hr />
       <ul>
         <li>
           <Link to="/dashboard">
@@ -21,7 +25,7 @@ export const SideBar = () => {
           </Link>
         </li>
         <li>
-          <Link to="/paymentMethod">
+          <Link to="/payment-methods">
             <i className="fa-solid fa-credit-card"></i> Payment Methods
           </Link>
         </li>
