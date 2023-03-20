@@ -8,6 +8,9 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import ResetPassword from "./pages/reset-password/ResetPassword";
 import Category from "./pages/category/Category";
 import PmPage from "./pages/payment-method/PmPage";
+import { PrivateRouter } from "./components/private-router/PrivateRouter";
+import Products from "./pages/products/Products";
+import { NewProduct } from "./pages/products/NewProduct";
 
 function App() {
   // const routers = [
@@ -33,10 +36,54 @@ function App() {
           ))} */}
 
           {/* private router */}
-          <Route path="register" element={<RegisterPage />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="category" element={<Category />} />
-          <Route path="payment-methods" element={<PmPage />} />
+          <Route
+            path="register"
+            element={
+              <PrivateRouter>
+                <RegisterPage />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="dashboard"
+            element={
+              <PrivateRouter>
+                <Dashboard />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="category"
+            element={
+              <PrivateRouter>
+                <Category />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="payment-methods"
+            element={
+              <PrivateRouter>
+                <PmPage />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="products"
+            element={
+              <PrivateRouter>
+                <Products />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="products/new"
+            element={
+              <PrivateRouter>
+                <NewProduct />
+              </PrivateRouter>
+            }
+          />
         </Routes>
       </Browser>
       <ToastContainer />

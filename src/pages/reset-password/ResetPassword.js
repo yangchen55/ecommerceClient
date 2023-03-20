@@ -9,7 +9,7 @@ import { Alert } from "react-bootstrap";
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("");
-  const [showForm, setShowForm] = useState("reset");
+  const [showForm, setShowForm] = useState("otp");
   const [response, setResponse] = useState({});
 
   const handleOnChange = (e) => {
