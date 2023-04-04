@@ -11,6 +11,7 @@ import PmPage from "./pages/payment-method/PmPage";
 import { PrivateRouter } from "./components/private-router/PrivateRouter";
 import Products from "./pages/products/Products";
 import { NewProduct } from "./pages/products/NewProduct";
+import { EditProduct } from "./pages/products/EditProduct";
 
 function App() {
   // const routers = [
@@ -31,19 +32,18 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="verify" element={<NewAccVerify />} />
           <Route path="reset-password" element={<ResetPassword />} />
-          {/* {routers.map((item) => (
-            <Route {...item} />
-          ))} */}
+          <Route path="register" element={<RegisterPage />} />
+
 
           {/* private router */}
-          <Route
+          {/* <Route
             path="register"
             element={
               <PrivateRouter>
                 <RegisterPage />
               </PrivateRouter>
             }
-          />
+          /> */}
           <Route
             path="dashboard"
             element={
@@ -84,10 +84,18 @@ function App() {
               </PrivateRouter>
             }
           />
+          <Route
+            path="products/:_id"
+            element={
+              <PrivateRouter>
+                <EditProduct />
+              </PrivateRouter>
+            }
+          />
         </Routes>
       </Browser>
       <ToastContainer />
-    </div>
+    </div >
   );
 }
 

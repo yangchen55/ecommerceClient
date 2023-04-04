@@ -46,7 +46,7 @@ export const CategoryTable = () => {
     const tempArg = cats.filter(({ name }) => {
       return name.toLowerCase().includes(value.toLowerCase());
     });
-    console.log(tempArg);
+
     setShowCats(tempArg);
   };
 

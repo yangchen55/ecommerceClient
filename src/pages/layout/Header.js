@@ -7,7 +7,7 @@ import { requestSuccess } from "../login/authSlice";
 
 export const Header = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
   const { user } = useSelector((state) => state.user);
 
   const handleOnLogout = () => {
@@ -27,14 +27,17 @@ export const Header = () => {
             {user?._id ? (
               <>
                 <Link to="/register" className="nav-link">
-                  <i class="fa-solid fa-bell" title="Notifications"></i>
+                  <i className="fa-solid fa-bell" title="Notifications"></i>
                 </Link>
                 <Link to="/register" className="nav-link">
-                  <i class="fa-solid fa-user-pen" title="User Profile"></i>
+                  <i className="fa-solid fa-user-pen" title="User Profile"></i>
                 </Link>
 
                 <Link to="/" className="nav-link" onClick={handleOnLogout}>
-                  <i class="fa-solid fa-right-to-bracket" title="Log out"></i>
+                  <i
+                    className="fa-solid fa-right-to-bracket"
+                    title="Log out"
+                  ></i>
                 </Link>
               </>
             ) : (

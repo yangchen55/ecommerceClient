@@ -1,5 +1,5 @@
 import axios from "axios";
-const rootUrl = "http://localhost:8000/api/v1";
+const rootUrl = process.env.REACT_APP_DOMAIN + "/api/v1";
 const adminApi = rootUrl + "/admin";
 const catApi = rootUrl + "/category";
 const pmApi = rootUrl + "/payment-method";
@@ -9,11 +9,11 @@ const fetchProcesser = async ({ method, url, data, isPrivate, token }) => {
   try {
     // await axios.post(adminApi + "/register", data);
     const jwtToken = token || sessionStorage.getItem("accessJWT");
-    console.log(jwtToken);
+
     const headers = isPrivate
       ? {
-          Authorization: jwtToken,
-        }
+        Authorization: jwtToken,
+      }
       : null;
 
     const res = await axios({
@@ -190,7 +190,7 @@ export const updatePM = async (data) => {
 export const fetchNewAccessJWT = async () => {
   const url = adminApi + "/new-accessjwt";
   const token = localStorage.getItem("refreshJWT");
-  console.log(token);
+
   const obj = {
     method: "get",
     url,
@@ -202,8 +202,8 @@ export const fetchNewAccessJWT = async () => {
 
 // product apis ==========
 
-export const fetchProduct = async () => {
-  const url = productApi;
+export const fetchProduct = async (_id) => {
+  const url = _id ? productApi + "/" + _id : productApi;
   const obj = {
     method: "get",
     url,
@@ -216,6 +216,28 @@ export const postProduct = async (data) => {
   const url = productApi;
   const obj = {
     method: "post",
+    url,
+    data,
+    isPrivate: true,
+  };
+  return fetchProcesser(obj);
+};
+
+export const updateProduct = async (data) => {
+  const url = productApi;
+  const obj = {
+    method: "put",
+    url,
+    data,
+    isPrivate: true,
+  };
+  return fetchProcesser(obj);
+};
+
+export const deleteProduct = async (data) => {
+  const url = productApi;
+  const obj = {
+    method: "delete",
     url,
     data,
     isPrivate: true,

@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { CustomeInputeField } from "../../components/custom-inpute-field/CustomeInputeField";
+import { CustomeSelect } from "../../components/custom-select/CustomeSelect";
+import { fetchCats } from "../category/categoryAction";
 import { AdminLayout } from "../layout/AdminLayout";
 import { postProductAction } from "./productAction";
 
+const initialState = {
+  status: "inactive",
+};
 export const NewProduct = () => {
   const dispatch = useDispatch();
-  const [formDt, setFormDt] = useState({});
-  const [newImages, setNewImages] = useState({})
+  const [formDt, setFormDt] = useState(initialState);
+  const [newImages, setNewImages] = useState([]);
+
+  const { cats } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    !cats.length && dispatch(fetchCats());
+  }, [cats.length, dispatch]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
-
     setFormDt({
       ...formDt,
       [name]: value,
@@ -21,19 +32,20 @@ export const NewProduct = () => {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const { images, ...rest } = formDt;
-    const formData = new FormData()
-
-    for (let key in rest) {
-      formData.append(key, rest[key])
+    const fromData = new FormData();
+    for (let key in formDt) {
+      fromData.append(key, formDt[key]);
     }
-    return;
-    dispatch(postProductAction(formData));
+    newImages.length &&
+      [...newImages].map((item) => fromData.append("images", item));
+    dispatch(postProductAction(fromData));
+    setFormDt(initialState)
   };
-  const handleOnImageUploaded = (e) => {
-    const { files } = e.target;
 
-  }
+  const handlOnImageUplodad = (e) => {
+    const { files } = e.target;
+    setNewImages(files);
+  };
 
   const inputes = [
     {
@@ -94,21 +106,35 @@ export const NewProduct = () => {
       type: "file",
       multiple: true,
       required: true,
+      accept: "image/*",
     },
   ];
   return (
     <AdminLayout>
       <div className="mb-3">
         <div className="py-3 fs-2">New Product</div>
+
+        <Link to="/products">
+          {" "}
+          <Button variant="secondary"> &lt; Back</Button>
+        </Link>
         <hr />
 
-        <Form method="" onSubmit={handleOnSubmit}>
+        <Form onSubmit={handleOnSubmit}>
           <Form.Group className="mb-3">
-            <Form.Check required name="status" type="switch" label="Status" />
+            <Form.Check name="status" type="switch" label="Status" />
           </Form.Group>
 
+          <CustomeSelect args={cats} func={handleOnChange} name="parentCat" />
+
           {inputes.map((item, i) => (
-            <CustomeInputeField key={i} {...item} onChange={handleOnChange} />
+            <CustomeInputeField
+              key={i}
+              {...item}
+              onChange={
+                item.name === "images" ? handlOnImageUplodad : handleOnChange
+              }
+            />
           ))}
 
           <div className="d-grid">
