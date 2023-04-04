@@ -1,9 +1,10 @@
 import axios from "axios";
-const rootUrl = process.env.REACT_APP_DOMAIN + "/api/v1";
+const rootUrl = process.env.REACT_APP_DOMAIN + "api/v1";
 const adminApi = rootUrl + "/admin";
 const catApi = rootUrl + "/category";
 const pmApi = rootUrl + "/payment-method";
 const productApi = rootUrl + "/product";
+
 
 const fetchProcesser = async ({ method, url, data, isPrivate, token }) => {
   try {
