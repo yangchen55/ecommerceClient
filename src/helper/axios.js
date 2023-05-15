@@ -5,6 +5,7 @@ const catApi = rootUrl + "/category";
 const pmApi = rootUrl + "/payment-method";
 const productApi = rootUrl + "/product";
 const orderApi = rootUrl + "/order";
+const customerApi = rootUrl + "/customer";
 
 const fetchProcesser = async ({ method, url, data, isPrivate, token }) => {
   try {
@@ -27,7 +28,6 @@ const fetchProcesser = async ({ method, url, data, isPrivate, token }) => {
     return res.data;
   } catch (error) {
     const message = error.message;
-
     if (error?.response?.data?.message === "jwt expired") {
       const { accessJWT } = await fetchNewAccessJWT();
       sessionStorage.setItem("accessJWT", accessJWT);
@@ -256,3 +256,15 @@ export const fetchOrder = async () => {
   };
   return fetchProcesser(obj);
 };
+
+// fetch customer 
+export const fetchCustomer = async () => {
+  const url = customerApi;
+  const obj = {
+    method: "get",
+    url,
+
+  }
+  return fetchProcesser(obj);
+
+}

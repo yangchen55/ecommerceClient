@@ -9,7 +9,7 @@ import Accordion from 'react-bootstrap/Accordion';
 const OrderPage = () => {
     const dispatch = useDispatch()
     const { orderList } = useSelector((state) => state.order)
-    console.log(orderList)
+
 
 
 

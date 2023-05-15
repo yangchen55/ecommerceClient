@@ -13,6 +13,7 @@ import Products from "./pages/products/Products";
 import { NewProduct } from "./pages/products/NewProduct";
 import { EditProduct } from "./pages/products/EditProduct";
 import OrderPage from "./pages/order/OrderPage";
+import CustomerPage from "./pages/customer/CustomerPage";
 
 function App() {
   // const routers = [
@@ -35,6 +36,7 @@ function App() {
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="orders" element={<OrderPage />} />
+          <Route path="customer" element={<CustomerPage />} />
 
           {/* private router */}
           {/* <Route
