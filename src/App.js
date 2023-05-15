@@ -12,6 +12,7 @@ import { PrivateRouter } from "./components/private-router/PrivateRouter";
 import Products from "./pages/products/Products";
 import { NewProduct } from "./pages/products/NewProduct";
 import { EditProduct } from "./pages/products/EditProduct";
+import OrderPage from "./pages/order/OrderPage";
 
 function App() {
   // const routers = [
@@ -33,7 +34,7 @@ function App() {
           <Route path="verify" element={<NewAccVerify />} />
           <Route path="reset-password" element={<ResetPassword />} />
           <Route path="register" element={<RegisterPage />} />
-
+          <Route path="orders" element={<OrderPage />} />
 
           {/* private router */}
           {/* <Route

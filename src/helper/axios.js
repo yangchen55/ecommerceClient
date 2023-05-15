@@ -4,7 +4,7 @@ const adminApi = rootUrl + "/admin";
 const catApi = rootUrl + "/category";
 const pmApi = rootUrl + "/payment-method";
 const productApi = rootUrl + "/product";
-
+const orderApi = rootUrl + "/order";
 
 const fetchProcesser = async ({ method, url, data, isPrivate, token }) => {
   try {
@@ -242,6 +242,17 @@ export const deleteProduct = async (data) => {
     url,
     data,
     isPrivate: true,
+  };
+  return fetchProcesser(obj);
+};
+
+// fetch order/
+export const fetchOrder = async () => {
+  const url = orderApi;
+  const obj = {
+    method: "get",
+    url,
+
   };
   return fetchProcesser(obj);
 };
