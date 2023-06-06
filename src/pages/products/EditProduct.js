@@ -223,7 +223,8 @@ export const EditProduct = () => {
                 <img
                   key={i}
                   className="border p-2"
-                  src={process.env.REACT_APP_DOMAIN + item.substr(6)}
+                  // src={process.env.REACT_APP_DOMAIN + item.substr(6)}
+                  src={item}
                   width="120px"
                   alt="product"
                 />

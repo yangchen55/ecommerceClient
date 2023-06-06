@@ -76,7 +76,8 @@ export const ProductTable = () => {
               </td>
               <td>
                 <img
-                  src={process.env.REACT_APP_DOMAIN + item?.mainImage.substr(6)}
+                  // src={process.env.REACT_APP_DOMAIN + item?.mainImage.substr(6)}
+                  src={item?.mainImage}
                   width="80px"
                   alt="photos"
                 />

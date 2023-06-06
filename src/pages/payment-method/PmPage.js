@@ -10,7 +10,7 @@ const PmPage = () => {
   const dispatch = useDispatch();
 
   const handleOnAdd = () => {
-    console.log("You clicked, yayayaya");
+
 
     dispatch(setShowModal(true));
     dispatch(setSelectedPM({}));
